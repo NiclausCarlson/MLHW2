@@ -15,8 +15,8 @@ def rmsd(dataList):
     return 0
 
 
-def printGraph(x, y):
+def printGraph(x, y, name):
     fig, ax = plt.subplots()
     ax.plot(x, y)
     plt.show()
-    fig.savefig('function graph')
+    fig.savefig(name)
