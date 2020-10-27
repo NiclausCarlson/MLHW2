@@ -1,6 +1,28 @@
 import matplotlib.pyplot as plt
 
 
+def getTrainingData():
+    training = open('data/training.txt', 'r')
+    numberOfFeatures = int(training.readline())
+    numberOfObjects = int(training.readline())
+    objects = []
+
+    for line in training:
+        objects.append(list(map(int, line.split())))
+
+    training.close()
+    return [objects, numberOfFeatures, numberOfObjects]
+
+
+def normalize(data):
+    minimums = [min(row) for row in zip(*data)]
+    maximums = [max(row) for row in zip(*data)]
+
+    for i in range(len(data)):
+        for j in range(len(data[i])):
+            data[i][j] = (data[i][j] - minimums[j]) / (maximums[j] - minimums[j])
+
+
 def smape(predicted, real):
     assert len(predicted) == len(real)
     try:
@@ -11,7 +33,7 @@ def smape(predicted, real):
         print("Division by zero")
 
 
-def rmsd(dataList):
+def grad(data, maxIters):
     return 0
 
 
