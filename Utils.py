@@ -20,7 +20,10 @@ def normalize(data):
 
     for i in range(len(data)):
         for j in range(len(data[i])):
-            data[i][j] = (data[i][j] - minimums[j]) / (maximums[j] - minimums[j])
+            if maximums[j] != minimums[j]:
+                data[i][j] = (data[i][j] - minimums[j]) / (maximums[j] - minimums[j])
+            else:
+                data[i][j] = 0
 
 
 def smape(predicted, real):
