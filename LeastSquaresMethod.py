@@ -6,16 +6,10 @@ def computeError(real, predicted):
     return sum([(zipped[0] - zipped[1]) ** 2 for zipped in zip(predicted, real)])
 
 
-data = Utils.getTrainingData()
+data = Utils.getNormalizedDataAndClasses()
 trainingObjects = data[0]
-Utils.normalize(trainingObjects)
+y = data[1]
 
-# вектор меток
-y = [trainingObjects[i][data[1]] for i in range(data[2])]
-
-# матрица признаков
-for i in range(data[2]):
-    del trainingObjects[i][-1]
 
 # добавил единицы как первый столбец
 ones = numpy.ones((len(trainingObjects), 1))

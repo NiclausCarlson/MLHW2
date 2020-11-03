@@ -26,6 +26,21 @@ def normalize(data):
                 data[i][j] = 0
 
 
+def getNormalizedDataAndClasses():
+    data = getTrainingData()
+    trainingObjects = data[0]
+    normalize(trainingObjects)
+
+    # вектор меток
+    y = [trainingObjects[i][data[1]] for i in range(data[2])]
+
+    # матрица признаков
+    for i in range(data[2]):
+        del trainingObjects[i][-1]
+
+    return [trainingObjects, y, data[1], data[2]]
+
+
 def smape(predicted, real):
     assert len(predicted) == len(real)
     try:
@@ -34,10 +49,6 @@ def smape(predicted, real):
                      range(0, len(predicted))]))
     except ZeroDivisionError:
         print("Division by zero")
-
-
-def grad(data, maxIters):
-    return 0
 
 
 def printGraph(x, y, name):
