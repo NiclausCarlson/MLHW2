@@ -6,7 +6,7 @@ def computeError(real, predicted):
     return sum([(zipped[0] - zipped[1]) ** 2 for zipped in zip(predicted, real)])
 
 
-data = Utils.getNormalizedDataAndClasses()
+data = Utils.getNormalizedTrainingDataAndClasses()
 trainingObjects = data[0]
 y = data[1]
 
@@ -29,23 +29,25 @@ f.write("Without regularization:\n")
 f.write(numpy.array_str(theta) + "\n\n")
 f.write("Error: " + numpy.str(error) + "\n\n")
 
-step = -2
+param = -2
+bestParam = 0
 minError = 100000000000000000000
 idMatrix = numpy.diag(numpy.ones(len(trainingObjects) + 1))
 minTheta = []
 
-while step <= 2:
+while param <= 2:
     theta = numpy.linalg.inv(
-        trainingObjects.transpose() @ trainingObjects + step * idMatrix) @ trainingObjects.transpose() @ y
+        trainingObjects.transpose() @ trainingObjects + param * idMatrix) @ trainingObjects.transpose() @ y
     yPredicted = trainingObjects.dot(theta)
     error = computeError(y, yPredicted)
     if error < minError:
         minError = error
         minTheta = theta
-    step += 0.1
+        bestParam = param
+    param += 0.1
 
 f.write("With regularization:\n")
 f.write(numpy.array_str(minTheta) + "\n\n")
 f.write("Error: " + numpy.str(minError) + "\n")
-
+f.write("Regularization param: " + str(bestParam))
 f.close()

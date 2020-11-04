@@ -26,7 +26,7 @@ def normalize(data):
                 data[i][j] = 0
 
 
-def getNormalizedDataAndClasses():
+def getNormalizedTrainingDataAndClasses():
     data = getTrainingData()
     trainingObjects = data[0]
     normalize(trainingObjects)
@@ -39,6 +39,23 @@ def getNormalizedDataAndClasses():
         del trainingObjects[i][-1]
 
     return [trainingObjects, y, data[1], data[2]]
+
+
+def getNormalizedTestData():
+    test = open('data/test.txt')
+    quantity = int(test.readline())
+    objects = []
+
+    for line in test:
+        objects.append(list(map(int, line.split())))
+    test.close()
+    normalize(objects)
+
+    y = [objects[i][len(objects[i]) - 1] for i in range(quantity)]
+    for i in range(quantity):
+        del objects[i][-1]
+
+    return [objects, y]
 
 
 def smape(predicted, real):
