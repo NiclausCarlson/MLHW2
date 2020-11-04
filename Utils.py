@@ -68,8 +68,16 @@ def smape(predicted, real):
         print("Division by zero")
 
 
-def printGraph(x, y, name):
+def printGraph(x, y, name, color):
+    param = ""
+    if color == "blue":
+        param = "b"
+    elif color == "red":
+        param = "r"
     fig, ax = plt.subplots()
-    ax.plot(x, y)
+    ax.plot(x, y, param)
+    ax.grid(True)
+    ax.xaxis.set_label_position('top')
+    ax.set_xlabel(u'Зависимость SMAPE от числа итераций (' + name + ')')
     plt.show()
     fig.savefig(name)

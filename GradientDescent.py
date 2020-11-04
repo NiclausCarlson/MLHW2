@@ -53,7 +53,7 @@ for i in range(2000):
     if math.sqrt(sum([(x[0] - x[1]) ** 2 for x in zip(weights, newWeights)])) < EPSILON:
         break
     weights = newWeights
-    # псчитаю SMAPE
+    # посчитаю SMAPE
     smapeOnTrainingSet.append(computeSMAPE(weights, y, trainingObjects))
     smapeOnTestSet.append(computeSMAPE(weights, testY, testObjects))
 
@@ -62,5 +62,5 @@ f.write("Weight:\n")
 f.write(numpy.array_str(weights) + "\n")
 f.close()
 
-Utils.printGraph([i for i in range(len(smapeOnTrainingSet))], smapeOnTrainingSet, "trainingSet")
-Utils.printGraph([i for i in range(len(smapeOnTestSet))], smapeOnTestSet, "testSet")
+Utils.printGraph([i for i in range(len(smapeOnTrainingSet))], smapeOnTrainingSet, "trainingSet", "blue")
+Utils.printGraph([i for i in range(len(smapeOnTestSet))], smapeOnTestSet, "testSet", "red")

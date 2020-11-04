@@ -1,15 +1,15 @@
 import Utils as Utils
 import numpy as numpy
+import math as math
 
 
 def computeError(real, predicted):
-    return sum([(zipped[0] - zipped[1]) ** 2 for zipped in zip(predicted, real)])
+    return math.sqrt(sum([(zipped[0] - zipped[1]) ** 2 for zipped in zip(predicted, real)]))
 
 
 data = Utils.getNormalizedTrainingDataAndClasses()
 trainingObjects = data[0]
 y = data[1]
-
 
 # добавил единицы как первый столбец
 ones = numpy.ones((len(trainingObjects), 1))
@@ -32,12 +32,12 @@ f.write("Error: " + numpy.str(error) + "\n\n")
 param = -2
 bestParam = 0
 minError = 100000000000000000000
-idMatrix = numpy.diag(numpy.ones(len(trainingObjects) + 1))
+idMatrix = numpy.diag(numpy.ones(len(trainingObjects)))
 minTheta = []
 
 while param <= 2:
-    theta = numpy.linalg.inv(
-        trainingObjects.transpose() @ trainingObjects + param * idMatrix) @ trainingObjects.transpose() @ y
+    theta = singular[2].transpose() @ numpy.linalg.inv(
+        diagSigma @ diagSigma + param * idMatrix) @ diagSigma @ singular[0].transpose() @ y
     yPredicted = trainingObjects.dot(theta)
     error = computeError(y, yPredicted)
     if error < minError:
